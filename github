@@ -1,0 +1,173 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Github",
+    "version": "1.0.0",
+    "title": "Github"
+  },
+  "host": "api.github.com",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "basic": {
+      "type": "basic"
+    }
+  },
+  "security": [
+    {
+      "basic": []
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/repos/{owner}/{repo}/contents/{path}": {
+      "get": {
+        "description": "Get File from Directory",
+        "x-ntx-summary": "Get File from Directory",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "description": "Git User Name",
+            "required": true,
+            "type": "string",
+            "x-ntx-summary": "User Name"
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "description": "Git Repository",
+            "required": true,
+            "type": "string",
+            "x-ntx-summary": "Repository"
+          },
+          {
+            "name": "path",
+            "in": "path",
+            "description": "Path of folder",
+            "type": "string",
+            "required": true,
+            "x-ntx-summary": "Folder Path"
+          },
+          {
+            "name": "ref",
+            "in": "query",
+            "type": "string",
+            "default": "master",
+            "x-ntx-summary": "Reference",
+            "description": "Name of Commit, Branch or Tag"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "format": "byte"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      },
+      "put": {
+        "description": "Create File",
+        "x-ntx-summary": "Create File",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "description": "Git User Name",
+            "required": true,
+            "type": "string",
+            "x-ntx-summary": "User Name"
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "description": "Git Repository",
+            "required": true,
+            "type": "string",
+            "x-ntx-summary": "Repository"
+          },
+          {
+            "name": "path",
+            "in": "path",
+            "description": "Path of folder",
+            "type": "string",
+            "required": true,
+            "x-ntx-summary": "Folder Path"
+          },
+          {
+            "name": "ref",
+            "in": "query",
+            "type": "string",
+            "default": "master",
+            "x-ntx-summary": "Reference",
+            "description": "Name of Commit, Branch or Tag"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "x-ntx-summary": "Commit Message"
+                },
+                "content": {
+                  "type": "string",
+                  "format": "byte",
+                  "x-ntx-summary": "File Content"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "x-ntx-summary": "File Name"
+                    },
+                    "path": {
+                      "type": "string",
+                      "x-ntx-summary": "File Path"
+                    },
+                    "download_url": {
+                      "type": "string",
+                      "x-ntx-summary": "File Download URL"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
